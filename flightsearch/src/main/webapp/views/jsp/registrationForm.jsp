@@ -49,16 +49,19 @@
 					<div class="wrap-input100 validate-input" data-validate = "Please enter your first name">
 						<input class="input100" type="text" name="firstName">
 						<span class="focus-input100" data-placeholder="First Name"></span>
+						<form:errors path="firstName" cssClass="error" />
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Please enter your last name">
 						<input class="input100" type="text" name="lastName">
 						<span class="focus-input100" data-placeholder="Last Name"></span>
+						<form:errors path="lastName" cssClass="error" />
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
 						<input class="input100" type="text" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
+						<form:errors path="email" cssClass="error" />
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
@@ -67,6 +70,7 @@
 						</span>
 						<input class="input100" type="password" name="password">
 						<span class="focus-input100" data-placeholder="Password"></span>
+						<form:errors path="password" cssClass="error" />
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate="Confirm password">
@@ -75,6 +79,7 @@
 						</span>
 						<input class="input100" type="password" name="passwordConfirm">
 						<span class="focus-input100" data-placeholder="Confirm Password"></span>
+						<form:errors path="passwordConfirm" cssClass="error" />
 					</div>
 
 					<div class="container-login100-form-btn">
