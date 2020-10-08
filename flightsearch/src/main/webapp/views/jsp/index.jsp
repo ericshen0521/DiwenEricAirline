@@ -41,9 +41,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
-						<form:form action="show" method="post">
+						<form:form action="show" method="post" modelAttribute="ticket">
 							<div class="form-group">
-								<div class="form-checkbox">
+								<!--<div class="form-checkbox">
 									<label for="roundtrip">
 										<input type="radio" id="roundtrip" name="flight-type"/>
 										<span></span>Roundtrip
@@ -56,42 +56,44 @@
 										<input type="radio" id="multi-city" name="flight-type"/>
 										<span></span>Multi-City
 									</label>
-								</div>
+								</div>-->
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<span class="form-label">Flying from</span>
-										<input id = "from-input-search" class="form-control" type="text" placeholder="City or airport">
+										<input id = "from-input-search" name="departCity" class="form-control" type="text" placeholder="City or airport"/>
+										 <input type="hidden" id="depart-code" name="departCode" >
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<span class="form-label">Flying to</span>
-										<input id = "from-input-search-dest" class="form-control" type="text" placeholder="City or airport">
+										<input id = "from-input-search-dest" name = "destCity" class="form-control" type="text" placeholder="City or airport"/>
+										 <input type="hidden" id="dest-code" name="destCode" >
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-3">
+							 <div class="col-md-3">
 									<div class="form-group">
 										<span class="form-label">Departing</span>
-										<input class="form-control" type="date" required>
+										<input name = "departDate" class="form-control" type="date" required/>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group">
 										<span class="form-label">Returning</span>
-										<input class="form-control" type="date" required>
+										<input name = "returnDate" class="form-control" type="date" required/>
 									</div>
 								</div>
 								<div class="col-md-2">
 									<div class="form-group">
 										<span class="form-label">Adults (18+)</span>
-										<select class="form-control">
-											<option>1</option>
-											<option>2</option>
-											<option>3</option>
+										<select name = "numOfAdults" class="form-control">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
 										</select>
 										<span class="select-arrow"></span>
 									</div>
@@ -99,23 +101,23 @@
 								<div class="col-md-2">
 									<div class="form-group">
 										<span class="form-label">Children (0-17)</span>
-										<select class="form-control">
-											<option>0</option>
-											<option>1</option>
-											<option>2</option>
+										<select name = "numOfChildren" class="form-control">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
 										</select>
 										<span class="select-arrow"></span>
 									</div>
 								</div>
 							</div>
-							<div class="row">
+						 <div class="row">
 								<div class="col-md-3">
 									<div class="form-group">
 										<span class="form-label">Travel class</span>
-										<select class="form-control">
-											<option>Economy class</option>
-											<option>Business class</option>
-											<option>First class</option>
+										<select name="travelClass" class="form-control">
+											<option value="0">Economy class</option>
+											<option value="1">Business class</option>
+											<option value="2">First class</option>
 										</select>
 										<span class="select-arrow"></span>
 									</div>
@@ -146,14 +148,14 @@
 			  
 			  suggestions: $.map($.parseJSON(response), function(item) {
 				  console.log(item);
-			      return { value: item.cityName};
+			      return { value: item.iataCode};
 			   })
 
 			 };
 
 	            },
 	            select: function (event, ui) {
-	    	       $('#from-input-search').val(ui.item.cityName);
+	    	       $('#from-input-search').val(ui.item.iataCode);
 	    	    }
 
 		 });
@@ -168,15 +170,16 @@
 			return {
 			  
 			  suggestions: $.map($.parseJSON(response), function(item) {
+				  
 				  console.log(item);
-			      return { value: item.cityName};
+			      return { value: item.iataCode};
 			   })
 
 			 };
 
 	            },
 	            select: function (event, ui) {
-	    	       $('#from-input-search').val(ui.item.cityName);
+	    	       $('#from-input-search').val(ui.item.iataCode);
 	    	    }
 
 		 });
