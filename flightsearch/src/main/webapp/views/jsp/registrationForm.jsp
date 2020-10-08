@@ -38,14 +38,24 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form:form class="login100-form validate-form" action="login" method="post" modelAttribute="loginDetails">
+				<form:form class="login100-form validate-form" action="register" method="post" modelAttribute="RegistrationDetails">
 					<span class="login100-form-title p-b-26">
 						Welcome
 					</span>
 					<span class="login100-form-title p-b-48">
 						<i class="zmdi zmdi-font"></i>
 					</span>
-
+					
+					<div class="wrap-input100 validate-input" data-validate = "Please enter your first name">
+						<input class="input100" type="text" name="firstName">
+						<span class="focus-input100" data-placeholder="First Name"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "Please enter your last name">
+						<input class="input100" type="text" name="lastName">
+						<span class="focus-input100" data-placeholder="Last Name"></span>
+					</div>
+					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
 						<input class="input100" type="text" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
@@ -58,26 +68,24 @@
 						<input class="input100" type="password" name="password">
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate="Confirm password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="passwordConfirm">
+						<span class="focus-input100" data-placeholder="Confirm Password"></span>
+					</div>
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
-								Login
+								Register
 							</button>
 						</div>
 					</div>
 
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							Don't have an account?
-						</span>
-
-						<a class="txt2" href="<c:url value='/registrationForm'/>">
-							Sign Up
-						</a>
-				
-					</div>
 				</form:form>
 			</div>
 		</div>

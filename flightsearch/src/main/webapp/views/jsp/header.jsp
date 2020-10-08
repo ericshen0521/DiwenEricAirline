@@ -41,12 +41,12 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link"
-						style="font-size: 1.75em" href="index.html">Home <span
+						style="font-size: 1.75em" href="/flightsearch/">Home <span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link"
-						style="font-size: 1.75em" href="<c:url value='/go'/>">Login</a></li>
+						style="font-size: 1.75em" href="<c:url value='/loginForm'/>">Login</a></li>
 					<li class="nav-item"><a class="nav-link"
-						style="font-size: 1.75em" href="<c:url value='/go'/>">Register</a>
+						style="font-size: 1.75em" href="<c:url value='/registrationForm'/>">Register</a>
 					</li>
 				</ul>
 			</div>

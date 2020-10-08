@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flightsearch.DTO.UserLoginDTO;
+import com.flightsearch.DTO.UserRegistrationDTO;
 import com.flightsearch.modal.CustomerModel;
 import com.flightsearch.service.CustomerService;
 
@@ -22,18 +23,37 @@ public class UserController {
 	CustomerService customerService;
 
 	//@ResponseBody
-	@RequestMapping("/go")
-	public String goToBrowser()
+	@RequestMapping("/loginForm")
+	public String goToLoginForm()
 	{
 		return "loginForm";
 	}
-
+	
+	@RequestMapping("/registrationForm")
+	public String goToRegistration()
+	{
+		return "registrationForm";
+	}
+	
+	
 	@PostMapping("/login")
 	public String saveCustomer(@ModelAttribute(name = "loginDetails") UserLoginDTO loginDetails, Model model)
 	{
 		//customerService.addCustomer(customer);
 		//return "Successfully added";
 		model.addAttribute("loginInfo", loginDetails);
+		return "displayLoginDetails";
+	}
+	
+	@PostMapping("/register")
+	public String registerAccount(@ModelAttribute(name = "registrationDetails") UserRegistrationDTO registrationDetails, Model model)
+	{
+		
+		if(!registrationDetails.getPassword().equals(registrationDetails.getPasswordConfirm())) {
+			return "registrationForm";
+		}
+		
+		model.addAttribute("registrationDetails", registrationDetails);
 		return "displayLoginDetails";
 	}
 	
