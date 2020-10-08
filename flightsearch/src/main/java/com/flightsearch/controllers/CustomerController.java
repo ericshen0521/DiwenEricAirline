@@ -24,15 +24,16 @@ public class CustomerController {
 	@RequestMapping("/go")
 	public String goToBrowser()
 	{
-		return "userEntry";
+		return "loginForm";
 	}
 
-	@ResponseBody
-	@PostMapping("/save")
-	public String saveCustomer(@ModelAttribute(name = "customerAttribute") CustomerModel customer)
+	@PostMapping("/login")
+	public String saveCustomer(@ModelAttribute(name = "customerAttribute") CustomerModel customer, Model model)
 	{
-		customerService.addCustomer(customer);
-		return "Successfully added";
+		//customerService.addCustomer(customer);
+		//return "Successfully added";
+		model.addAttribute("customer", customer);
+		return "displayLoginDetails";
 	}
 	
 	@GetMapping("/fetch")

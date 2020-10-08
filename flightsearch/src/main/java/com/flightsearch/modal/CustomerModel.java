@@ -14,10 +14,10 @@ public class CustomerModel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "CUST_ID")
 	private int id;
-	@Column(name = "CUST_NAME")
-	private String name;
-	@Column(name = "CUST_AGE")
-	private int age;
+	@Column(name = "USERNAME")
+	private String username;
+	@Column(name = "PASSWORD")
+	private String password;
 	
 	public int getId() {
 		return id;
@@ -25,22 +25,22 @@ public class CustomerModel {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public int getAge() {
-		return age;
+	public String getPassword() {
+		return password;
 	}
-	public void setAge(int age) {
-		this.age = age;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", age=" + age + "]";
+		return "Customer [id=" + id + ", username=" + username + ", password=" + password + "]";
 	}
 	
 }
