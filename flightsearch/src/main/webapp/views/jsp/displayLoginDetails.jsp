@@ -7,9 +7,8 @@
 <body>
 
 
-${customer.id}
-${customer.username}
-${customer.password}
+${loginDetails.email}
+${loginDetails.password}
 
 </body>
 </html>

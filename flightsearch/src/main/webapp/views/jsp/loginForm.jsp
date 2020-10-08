@@ -38,7 +38,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form:form class="login100-form validate-form" action="login" method="post" modelAttribute="customerAttribute">
+				<form:form class="login100-form validate-form" action="login" method="post" modelAttribute="loginDetails">
 					<span class="login100-form-title p-b-26">
 						Welcome
 					</span>
@@ -47,7 +47,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<input class="input100" type="text" name="username">
+						<input class="input100" type="text" name="email">
 						<span class="focus-input100" data-placeholder="Email"></span>
 					</div>
 

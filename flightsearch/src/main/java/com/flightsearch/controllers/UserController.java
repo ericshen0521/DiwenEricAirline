@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.flightsearch.DTO.UserLoginDTO;
 import com.flightsearch.modal.CustomerModel;
 import com.flightsearch.service.CustomerService;
 
 @Controller
 @ComponentScan(basePackages = "com.flightsearch.service")
-public class CustomerController {
+public class UserController {
 	
 	@Autowired
 	CustomerService customerService;
@@ -28,11 +29,11 @@ public class CustomerController {
 	}
 
 	@PostMapping("/login")
-	public String saveCustomer(@ModelAttribute(name = "customerAttribute") CustomerModel customer, Model model)
+	public String saveCustomer(@ModelAttribute(name = "loginDetails") UserLoginDTO loginDetails, Model model)
 	{
 		//customerService.addCustomer(customer);
 		//return "Successfully added";
-		model.addAttribute("customer", customer);
+		model.addAttribute("loginInfo", loginDetails);
 		return "displayLoginDetails";
 	}
 	
