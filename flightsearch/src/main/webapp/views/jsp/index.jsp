@@ -41,7 +41,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
-						<form:form>
+						<form:form action="show" method="post">
 							<div class="form-group">
 								<div class="form-checkbox">
 									<label for="roundtrip">
@@ -67,8 +67,8 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<span class="form-label">Flyning to</span>
-										<input class="form-control" type="text" placeholder="City or airport">
+										<span class="form-label">Flying to</span>
+										<input id = "from-input-search-dest" class="form-control" type="text" placeholder="City or airport">
 									</div>
 								</div>
 							</div>
@@ -137,22 +137,46 @@
 
 		$('#from-input-search').autocomplete({
 			serviceUrl: 'getTags',
-			paramName: "tagName",
+			paramName: "cityName",
 			delimiter: ",",
 		   transformResult: function(response) {
 			console.log("ffff");
+			console.log(response);
 			return {
 			  
 			  suggestions: $.map($.parseJSON(response), function(item) {
 				  console.log(item);
-			      return { value: item.tagName, data: item.id };
+			      return { value: item.cityName};
 			   })
 
 			 };
 
 	            },
 	            select: function (event, ui) {
-	    	       $('#from-input-search').val(ui.item.tagName);
+	    	       $('#from-input-search').val(ui.item.cityName);
+	    	    }
+
+		 });
+		
+		$('#from-input-search-dest').autocomplete({
+			serviceUrl: 'getTags',
+			paramName: "cityName",
+			delimiter: ",",
+		   transformResult: function(response) {
+			console.log("ffff");
+			console.log(response);
+			return {
+			  
+			  suggestions: $.map($.parseJSON(response), function(item) {
+				  console.log(item);
+			      return { value: item.cityName};
+			   })
+
+			 };
+
+	            },
+	            select: function (event, ui) {
+	    	       $('#from-input-search').val(ui.item.cityName);
 	    	    }
 
 		 });
