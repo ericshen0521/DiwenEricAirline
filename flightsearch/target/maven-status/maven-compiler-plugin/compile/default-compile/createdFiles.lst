@@ -1,0 +1,12 @@
+com\flightsearch\controllers\CustomerController.class
+com\flightsearch\appconfiguration\MyAppInitializer.class
+com\flightsearch\DAO\CustomerDAO.class
+com\flightsearch\DAO\CustomerDAOImpl.class
+com\flightsearch\appconfiguration\MyApplicationConfigurationClass.class
+com\flightsearch\modal\CustomerModel.class
+com\flightsearch\service\CustomerService.class
+com\flightsearch\appconfiguration\HibernateConfiguration.class
+com\flightsearch\controllers\Tag.class
+com\flightsearch\controllers\FlightController.class
+com\flightsearch\service\CustomerServiceImpl.class
+com\flightsearch\DAO\AbstractDAO.class
