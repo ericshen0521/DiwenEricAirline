@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flightsearch.modal.LocationInfo;
-import com.flightsearch.service.CustomerService;
+import com.flightsearch.service.UserService;
 import com.flightsearch.service.FlightSearchService;
 
 @Controller

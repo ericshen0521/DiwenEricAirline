@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.flightsearch.DTO.UserLoginDTO;
 import com.flightsearch.DTO.UserRegistrationDTO;
-import com.flightsearch.modal.CustomerModel;
-import com.flightsearch.service.CustomerService;
+import com.flightsearch.modal.UserModel;
+import com.flightsearch.service.UserService;
 import com.flightsearch.validator.UserValidator;
 
 @Controller
@@ -25,7 +25,7 @@ import com.flightsearch.validator.UserValidator;
 public class UserController {
 	
 	@Autowired
-	CustomerService customerService;
+	UserService userService;
 	
 	@Autowired
 	private UserValidator userValidator;
@@ -55,6 +55,7 @@ public class UserController {
 		//customerService.addCustomer(customer);
 		//return "Successfully added";
 		model.addAttribute("loginInfo", loginDetails);
+		
 		return "displayLoginDetails";
 	}
 	
@@ -67,6 +68,8 @@ public class UserController {
 		}
 		
 		model.addAttribute("registrationDetails", registrationDetails);
+		userService.registerUser(registrationDetails);
+		
 		return "displayRegistrationDetails";
 	}
 	
@@ -74,7 +77,7 @@ public class UserController {
 	@GetMapping("/fetch")
 	public String getCustomerDetails(Model model)
 	{
-		model.addAttribute("customerList",customerService.fetchCustomer());
+		model.addAttribute("customerList",userService.fetchUser());
 		return "welcome";
 	}
 	
