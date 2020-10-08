@@ -1,0 +1,4 @@
+com\flightsearch\controllers\Tag.class
+com\flightsearch\controllers\FlightController.class
+com\flightsearch\appconfiguration\MyApplicationConfigurationClass.class
+com\flightsearch\appconfiguration\MyAppInitializer.class
