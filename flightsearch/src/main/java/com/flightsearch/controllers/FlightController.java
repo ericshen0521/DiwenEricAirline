@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.flightsearch.modal.LocationInfo;
 import com.flightsearch.modal.Ticket;
 import com.flightsearch.modal.TicketInfo;
+import com.flightsearch.service.UserService;
 import com.flightsearch.service.FlightSearchService;
 
 @Controller

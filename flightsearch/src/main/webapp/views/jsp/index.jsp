@@ -37,6 +37,8 @@
 </head>
 
 <body>
+	<jsp:include page="header.jsp" />
+
 	<div id="booking" class="section">
 		<div class="section-center">
 			<div class="container">
