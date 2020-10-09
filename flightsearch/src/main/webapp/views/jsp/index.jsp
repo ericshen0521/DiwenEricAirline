@@ -25,7 +25,8 @@
 	<!-- Custom stlylesheet -->
 	 <link href="<c:url value="/resources/css/style.css" />"
 	rel="stylesheet">
-
+	 <link href="<c:url value="/resources/css/main.css" />"
+	rel="stylesheet">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -135,30 +136,37 @@
 		</div>
 	</div>
 	<script>
+	
 	$(document).ready(function() {
 
 		$('#from-input-search').autocomplete({
 			serviceUrl: 'getTags',
 			paramName: "cityName",
 			delimiter: ",",
-		   transformResult: function(response) {
+			OnSelect: function(suggestion) {
+				console.log("ui test");
+				return false;
+			},
+			transformResult: function(response) {
 			console.log("ffff");
 			console.log(response);
+			
 			return {
 			  
-			  suggestions: $.map($.parseJSON(response), function(item) {
-				  console.log(item);
-			      return { value: item.iataCode};
-			   })
+				suggestions: $.map($.parseJSON(response), function(item) {
+
+				      return { value: item.iataCode, data: item.cityName};
+				   })
 
 			 };
 
-	            },
-	            select: function (event, ui) {
-	    	       $('#from-input-search').val(ui.item.iataCode);
-	    	    }
+	            }
+		
+		
+	           
 
 		 });
+		
 		
 		$('#from-input-search-dest').autocomplete({
 			serviceUrl: 'getTags',
@@ -172,7 +180,7 @@
 			  suggestions: $.map($.parseJSON(response), function(item) {
 				  
 				  console.log(item);
-			      return { value: item.iataCode};
+			      return { value: item.iataCode, data: item.cityName};
 			   })
 
 			 };
@@ -185,7 +193,6 @@
 		 });
 
 	  });
-	
 	
 	
 	</script>

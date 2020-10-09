@@ -80,6 +80,11 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 			ticketInfo.setDestTerminal(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival().getTerminal());
 			ticketInfo.setDuration(flightOffersSearches[0].getItineraries()[0].getDuration());
 			ticketList.add(ticketInfo);
+//			for (int i = 0; i < flightOffersSearches.length; i ++) {
+//				for (int j = 0; j < flightOffersSearches[i].getItineraries().length; j ++) {
+//					
+//				}
+//			}
 			 if (flightOffersSearches[0].getResponse().getStatusCode() != 200) {
 			      System.out.println("Wrong status code: " + flightOffersSearches[0].getResponse().getStatusCode());
 			      System.exit(-1);
