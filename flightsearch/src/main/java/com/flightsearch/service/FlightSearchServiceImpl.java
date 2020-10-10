@@ -2,25 +2,32 @@ package com.flightsearch.service;
 
 
 import com.amadeus.referenceData.Locations;
+import com.flightsearch.DAO.TicketDAO;
+import com.flightsearch.DAO.UserDAO;
+import com.flightsearch.DTO.FlightPathDTO;
+import com.flightsearch.DTO.TicketDTO;
+import com.flightsearch.DTO.TicketInfoDTO;
 import com.flightsearch.modal.LocationInfo;
-import com.flightsearch.modal.Ticket;
-import com.flightsearch.modal.TicketInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.resources.Location;
 
 @Service
+@ComponentScan(basePackages = "com.flightsearch.DAO")
 public class FlightSearchServiceImpl implements FlightSearchService{
+	
+	@Autowired
+	private TicketDAO ticketDAO;
 	
 	@Override
 	@ModelAttribute("code")
@@ -37,10 +44,8 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 		        System.out.println("Wrong status code: " + locations[0].getResponse().getStatusCode());
 		        System.exit(-1);
 		    }
-		    System.out.println(locations[0]);
 		    for (Location loc : locations) {
 		    	String city = loc.getName();
-		    	System.out.println("city: " + city);
 		    	String iataCode = loc.getIataCode();
 		    	LocationInfo locInfo = new LocationInfo(city, iataCode);
 		    	location_info.add(locInfo);
@@ -54,10 +59,10 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 	
 
 	@Override
-	public List<TicketInfo> getTicketInfo(Ticket ticket) {
+	public List<TicketInfoDTO> getTicketInfo(TicketDTO ticket) {
 		FlightOfferSearch[] flightOffersSearches;
-		List<TicketInfo> ticketList;
-		ticketList = new ArrayList<TicketInfo>();
+		List<TicketInfoDTO> ticketList;
+		ticketList = new ArrayList<TicketInfoDTO>();
 		try {
 			flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
 			        Params.with("originLocationCode", ticket.getDepartCity())
@@ -66,25 +71,45 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 			                .and("returnDate", ticket.getReturnDate())
 			                .and("adults", Integer.parseInt(ticket.getNumOfAdults()))
 			                .and("max", Integer.parseInt(ticket.getNumOfAdults()) + Integer.parseInt(ticket.getNumOfChildren())));
-			System.out.println(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getDeparture());
-			System.out.println(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival());
-			System.out.println(flightOffersSearches[0].getItineraries()[0].getDuration());
-			System.out.println(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getAircraft());
-			System.out.println(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getCarrierCode());
-			TicketInfo ticketInfo = new TicketInfo();
-			ticketInfo.setAircraft(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getAircraft().getCode());
-			ticketInfo.setCarriercode(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getCarrierCode());
-			ticketInfo.setDepartCity(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getDeparture().getIataCode());
-			ticketInfo.setDepartTerminal(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getDeparture().getTerminal());
-			ticketInfo.setDestCity(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival().getIataCode());
-			ticketInfo.setDestTerminal(flightOffersSearches[0].getItineraries()[0].getSegments()[0].getArrival().getTerminal());
-			ticketInfo.setDuration(flightOffersSearches[0].getItineraries()[0].getDuration());
-			ticketList.add(ticketInfo);
-//			for (int i = 0; i < flightOffersSearches.length; i ++) {
-//				for (int j = 0; j < flightOffersSearches[i].getItineraries().length; j ++) {
-//					
-//				}
-//			}
+		
+			
+			for (int i = 0; i < flightOffersSearches.length; i ++) {
+				TicketInfoDTO ticketInfo = new TicketInfoDTO();
+				List<FlightPathDTO> first = new ArrayList<FlightPathDTO>();
+				List<FlightPathDTO> second = new ArrayList<FlightPathDTO>();
+				for (int j = 0; j < flightOffersSearches[i].getItineraries()[0].getSegments().length; j ++) {
+					FlightPathDTO flightPath = new FlightPathDTO();
+					flightPath.setArrivalDate(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getArrival().getAt());
+					flightPath.setAircraft(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getAircraft().getCode());
+					flightPath.setArrivalTerminal(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getArrival().getTerminal());
+					flightPath.setCarrierCode(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getCarrierCode());
+					flightPath.setDepartureAirport(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getDeparture().getIataCode());
+					flightPath.setDepartureDate(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getDeparture().getAt());
+					flightPath.setDepartureTerminal(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getDeparture().getTerminal());
+					flightPath.setDestAirport(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getArrival().getIataCode());
+					flightPath.setDuration(flightOffersSearches[i].getItineraries()[0].getSegments()[j].getDuration());
+					first.add(flightPath);
+				}
+				
+				for (int j = 0; j < flightOffersSearches[i].getItineraries()[1].getSegments().length; j ++) {
+					FlightPathDTO flightPath = new FlightPathDTO();
+					flightPath.setArrivalDate(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getArrival().getAt());
+					flightPath.setAircraft(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getAircraft().getCode());
+					flightPath.setArrivalTerminal(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getArrival().getTerminal());
+					flightPath.setCarrierCode(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getCarrierCode());
+					flightPath.setDepartureAirport(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getDeparture().getIataCode());
+					flightPath.setDepartureDate(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getDeparture().getAt());
+					flightPath.setDepartureTerminal(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getDeparture().getTerminal());
+					flightPath.setDestAirport(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getArrival().getIataCode());
+					flightPath.setDuration(flightOffersSearches[i].getItineraries()[1].getSegments()[j].getDuration());
+					second.add(flightPath);
+				}
+				ticketInfo.setGoList(first);
+				ticketInfo.setBackList(second);
+				ticketInfo.setTotalPrice(flightOffersSearches[i].getPrice().getTotal());
+				ticketInfo.setAvailableSeats(flightOffersSearches[i].getNumberOfBookableSeats());
+				ticketList.add(ticketInfo);
+			}
 			 if (flightOffersSearches[0].getResponse().getStatusCode() != 200) {
 			      System.out.println("Wrong status code: " + flightOffersSearches[0].getResponse().getStatusCode());
 			      System.exit(-1);
@@ -95,6 +120,12 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 		}
 
 		return ticketList;
+	}
+	
+	@Override
+	public int insertTicketInfo(TicketInfoDTO ticketInfoDTO) {
+		int ticketID = ticketDAO.save(ticketInfoDTO);
+		return ticketID;
 	}
 
 }

@@ -1,8 +1,12 @@
-package com.flightsearch.modal;
+package com.flightsearch.DTO;
 
+import java.io.Serializable;
 
-
-public class Ticket {
+public class TicketDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7946570404121183045L;
 	private String departCity;
 	private String destCity;
 	private String departDate;
@@ -69,6 +73,14 @@ public class Ticket {
 	public void setTravelClass(String travelClass) {
 		this.travelClass = travelClass;
 	}
+	@Override
+	public String toString() {
+		return "TicketDTO [departCity=" + departCity + ", destCity=" + destCity + ", departDate=" + departDate
+				+ ", returnDate=" + returnDate + ", numOfAdults=" + numOfAdults + ", numOfChildren=" + numOfChildren
+				+ ", travelClass=" + travelClass + ", departCode=" + departCode + ", destCode=" + destCode + "]";
+	}
+	
+	
 
 	
 	

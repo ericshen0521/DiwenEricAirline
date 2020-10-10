@@ -1,55 +1,78 @@
 package com.flightsearch.modal;
 
+import java.util.List;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "TICKET")
 public class TicketInfo {
-	private String departCity;
-	private String destCity;
-	private String departTerminal;
-	private String destTerminal;
-	private String duration;
-	private String aircraft;
-	private String carriercode;
-	public String getDepartCity() {
-		return departCity;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "TICKET_ID")
+	private int id;
+	
+	public int getId() {
+		return id;
 	}
-	public void setDepartCity(String departCity) {
-		this.departCity = departCity;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getDestCity() {
-		return destCity;
+	
+	@ElementCollection
+	@CollectionTable(
+			name="FLIGHTPATHGO",
+			joinColumns = @JoinColumn(name="GO_ID")
+	)
+	private List<FlightPathGo> goList;
+	
+	@ElementCollection
+	@CollectionTable(
+			name="FLIGHTPATHBACK",
+			joinColumns = @JoinColumn(name="BACK_ID")
+	)
+	private List<FlightPathBack> backList;
+	
+	@Column(name = "AVAILABLESEATS")
+	private int availableSeats;
+	@Column(name = "TOTALPRICE")
+	private double totalPrice;
+	
+	public int getAvailableSeats() {
+		return availableSeats;
 	}
-	public void setDestCity(String destCity) {
-		this.destCity = destCity;
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
 	}
-	public String getDepartTerminal() {
-		return departTerminal;
+	public double getTotalPrice() {
+		return totalPrice;
 	}
-	public void setDepartTerminal(String departTerminal) {
-		this.departTerminal = departTerminal;
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
-	public String getDestTerminal() {
-		return destTerminal;
+	public List<FlightPathGo> getGoList() {
+		return goList;
 	}
-	public void setDestTerminal(String destTerminal) {
-		this.destTerminal = destTerminal;
+	public void setGoList(List<FlightPathGo> goList) {
+		this.goList = goList;
 	}
-	public String getDuration() {
-		return duration;
+	public List<FlightPathBack> getBackList() {
+		return backList;
 	}
-	public void setDuration(String duration) {
-		this.duration = duration;
+	public void setBackList(List<FlightPathBack> backList) {
+		this.backList = backList;
 	}
-	public String getAircraft() {
-		return aircraft;
-	}
-	public void setAircraft(String aircraft) {
-		this.aircraft = aircraft;
-	}
-	public String getCarriercode() {
-		return carriercode;
-	}
-	public void setCarriercode(String carriercode) {
-		this.carriercode = carriercode;
-	}
+
+	
 	
 	
 }
