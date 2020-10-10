@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.flightsearch.DAO.UserDAO;
 import com.flightsearch.DTO.UserRegistrationDTO;
-import com.flightsearch.modal.UserModel;
+import com.flightsearch.model.UserModel;
 
 @Service
 @ComponentScan(basePackages = "com.flightsearch.DAO")
@@ -51,5 +51,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserModel registerUser(UserRegistrationDTO registrationDetails) {
 		return userDAO.register(registrationDetails);
+	}
+
+	@Override
+	public boolean isEmailTaken(String email) {
+		return userDAO.isEmailTaken(email);
+	}
+
+	@Override
+	public UserModel fetchUserByLogin(String email, String password) {
+		return userDAO.fetchUserByLogin(email, password);
 	}
 }

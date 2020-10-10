@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.flightsearch.model.UserModel"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
@@ -26,13 +27,24 @@
 
 <header>
 
+	<%! UserModel currentUser = null; %>
+	<% currentUser = (UserModel) session.getAttribute("user"); %>
+
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
 		id="mainNav">
 		<div class="container-fluid">
-			<a class="navbar-brand js-scroll-trigger" href="index.html">
-				<h2></h2> <img
-				src="http://www.m2kindia.com/wp-content/uploads/2016/07/dummy-logo.png">
+			<!-- <a class="navbar-brand js-scroll-trigger" href="/flightsearch/">
+				<h2></h2> 
+				
+
+			</a> -->
+
+			<a class="nav-link" style="font-size: 1.75em" href="/flightsearch/">Our
+				Airline Company <span class="sr-only">(current)</span>
 			</a>
+
+
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -40,14 +52,31 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
+					<% if(currentUser == null) {%>
+
+						<li class="nav-item"><a class="nav-link"
+							style="font-size: 1.75em" href="<c:url value='/loginForm'/>">Login</a></li>
+						<li class="nav-item"><a class="nav-link"
+							style="font-size: 1.75em"
+							href="<c:url value='/registrationForm'/>">Register</a></li>
+
+					<%} else { %>
+						<li class="nav-item"><a class="nav-link"
+							style="font-size: 1.75em"
+							href="<c:url value='/displayLoginDetails'/>">Profile</a></li>
+						</li>
+						
+						<li class="nav-item"><a class="nav-link"
+							style="font-size: 1.75em"
+							href="<c:url value='/logout'/>">Sign Out</a></li>
+						</li>
+					<%} %>
+
+
 					<li class="nav-item"><a class="nav-link"
-						style="font-size: 1.75em" href="/flightsearch/">Home <span
-							class="sr-only">(current)</span></a></li>
+						style="font-size: 1.75em" href="#">About Us</a></li>
 					<li class="nav-item"><a class="nav-link"
-						style="font-size: 1.75em" href="<c:url value='/loginForm'/>">Login</a></li>
-					<li class="nav-item"><a class="nav-link"
-						style="font-size: 1.75em" href="<c:url value='/registrationForm'/>">Register</a>
-					</li>
+						style="font-size: 1.75em" href="#">Contact Us</a></li>
 				</ul>
 			</div>
 		</div>

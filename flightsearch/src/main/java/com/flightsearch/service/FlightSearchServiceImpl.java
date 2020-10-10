@@ -2,9 +2,6 @@ package com.flightsearch.service;
 
 
 import com.amadeus.referenceData.Locations;
-import com.flightsearch.modal.LocationInfo;
-import com.flightsearch.modal.Ticket;
-import com.flightsearch.modal.TicketInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,9 @@ import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.resources.Location;
+import com.flightsearch.model.LocationInfo;
+import com.flightsearch.model.Ticket;
+import com.flightsearch.model.TicketInfo;
 
 @Service
 public class FlightSearchServiceImpl implements FlightSearchService{

@@ -23,11 +23,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import com.flightsearch.modal.LocationInfo;
-import com.flightsearch.modal.Ticket;
-import com.flightsearch.modal.TicketInfo;
 import com.flightsearch.service.UserService;
+import com.flightsearch.model.LocationInfo;
+import com.flightsearch.model.Ticket;
+import com.flightsearch.model.TicketInfo;
 import com.flightsearch.service.FlightSearchService;
 
 @Controller

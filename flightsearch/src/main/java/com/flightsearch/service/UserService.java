@@ -3,7 +3,7 @@ package com.flightsearch.service;
 import java.util.List;
 
 import com.flightsearch.DTO.UserRegistrationDTO;
-import com.flightsearch.modal.UserModel;
+import com.flightsearch.model.UserModel;
 
 public interface UserService {
 	public void addUser(UserModel user);
@@ -14,5 +14,7 @@ public interface UserService {
 	public List<UserModel> fetchUser();
 	
 	public UserModel fetchUserByID(int userID);
+	public UserModel fetchUserByLogin(String email, String password);
+	public boolean isEmailTaken(String email);
 	
 }

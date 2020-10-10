@@ -2,23 +2,27 @@ package com.flightsearch.validator;
 
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.flightsearch.DTO.UserRegistrationDTO;
-
+import com.flightsearch.service.UserService;
 
 @Component
-public class UserValidator implements Validator {
+public class RegistrationValidator implements Validator {
 
-   @Override
-   public boolean supports(Class<?> clazz) {
-      return UserRegistrationDTO.class.equals(clazz);
-   }
+	@Autowired
+	UserService userService;
 
-   @Override
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return UserRegistrationDTO.class.equals(clazz);
+	}
+
+	@Override
    public void validate(Object obj, Errors err) {
 
       ValidationUtils.rejectIfEmpty(err, "firstName", "registrationDetails.firstName.empty");
@@ -39,6 +43,10 @@ public class UserValidator implements Validator {
             Pattern.CASE_INSENSITIVE);
       if (!(pattern.matcher(registrationDetails.getEmail()).matches())) {
          err.rejectValue("email", "registrationDetails.email.invalid");
+      }
+      
+      if(userService.isEmailTaken(registrationDetails.getEmail())) {
+    	  err.rejectValue("email", "registrationDetails.email.taken");
       }
 
    }

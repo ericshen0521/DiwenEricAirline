@@ -1,4 +1,4 @@
-package com.flightsearch.modal;
+package com.flightsearch.model;
 
 public class TicketInfo {
 	private String departCity;

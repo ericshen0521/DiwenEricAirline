@@ -6,9 +6,9 @@ import java.util.List;
 
 
 import com.amadeus.Amadeus;
-import com.flightsearch.modal.LocationInfo;
-import com.flightsearch.modal.Ticket;
-import com.flightsearch.modal.TicketInfo;
+import com.flightsearch.model.LocationInfo;
+import com.flightsearch.model.Ticket;
+import com.flightsearch.model.TicketInfo;
 
 
 public interface FlightSearchService {
