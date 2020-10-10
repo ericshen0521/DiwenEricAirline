@@ -7,9 +7,11 @@ import java.util.List;
 
 
 import com.amadeus.Amadeus;
+
 import com.flightsearch.DTO.TicketDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
-import com.flightsearch.modal.LocationInfo;
+import com.flightsearch.model.LocationInfo;
+
 
 
 public interface FlightSearchService {

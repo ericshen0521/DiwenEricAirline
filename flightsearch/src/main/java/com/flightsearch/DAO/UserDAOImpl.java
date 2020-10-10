@@ -2,7 +2,7 @@ package com.flightsearch.DAO;
 
 import java.util.List;
 
-
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.Session;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.flightsearch.DTO.UserRegistrationDTO;
-import com.flightsearch.modal.UserModel;
+import com.flightsearch.model.UserModel;
 
 @Transactional
 @Repository
@@ -66,6 +66,38 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserModel fetchUserByID(int userID) {
 		return getSession().get(UserModel.class, userID);
+	}
+
+	@Override
+	public boolean isEmailTaken(String email) {
+		try {
+			getSession().createQuery("from UserModel user where user.email = :email")
+					.setParameter("email", email)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println("email not already registered");
+			return false;
+		}
+		System.out.println("email already registered");
+		return true;
+		
+		
+	}
+
+	@Override
+	public UserModel fetchUserByLogin(String email, String password) {
+		UserModel user;
+		
+		try {
+			user = (UserModel) getSession().createQuery("from UserModel user where user.email = :email and user.password = :password")
+					.setParameter("email", email)
+					.setParameter("password", password)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			user = null;
+		}
+
+		return user;
 	}
 
 	

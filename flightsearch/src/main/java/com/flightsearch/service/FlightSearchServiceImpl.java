@@ -7,7 +7,7 @@ import com.flightsearch.DAO.UserDAO;
 import com.flightsearch.DTO.FlightPathDTO;
 import com.flightsearch.DTO.TicketDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
-import com.flightsearch.modal.LocationInfo;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,8 @@ import com.amadeus.Params;
 import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.resources.Location;
+import com.flightsearch.model.LocationInfo;
+
 
 @Service
 @ComponentScan(basePackages = "com.flightsearch.DAO")

@@ -22,7 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.flightsearch.DTO.TicketDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
 import com.flightsearch.modal.LocationInfo;
-
+import com.flightsearch.service.UserService;
+import com.flightsearch.model.LocationInfo;
 import com.flightsearch.service.FlightSearchService;
 
 @Controller
