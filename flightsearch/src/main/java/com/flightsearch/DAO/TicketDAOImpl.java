@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.flightsearch.DTO.FlightPathDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
-import com.flightsearch.modal.FlightPathBack;
-import com.flightsearch.modal.FlightPathGo;
-import com.flightsearch.modal.TicketInfo;
+import com.flightsearch.model.FlightPathBack;
+import com.flightsearch.model.FlightPathGo;
+import com.flightsearch.model.TicketInfo;
 
 
 

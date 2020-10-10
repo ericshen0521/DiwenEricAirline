@@ -1,8 +1,5 @@
-<<<<<<< HEAD:flightsearch/src/main/java/com/flightsearch/DTO/TicketDTO.java
 package com.flightsearch.DTO;
-=======
-package com.flightsearch.model;
->>>>>>> AccountModule:flightsearch/src/main/java/com/flightsearch/model/Ticket.java
+
 
 import java.io.Serializable;
 
