@@ -2,12 +2,14 @@ package com.flightsearch.controllers;
 
 
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.http.HTTPBinding;
 
@@ -25,24 +27,34 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.flightsearch.DTO.PaymentInfoDTO;
 import com.flightsearch.DTO.TicketDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
+import com.flightsearch.DTO.UserLoginDTO;
 import com.flightsearch.service.UserService;
 import com.flightsearch.model.LocationInfo;
+import com.flightsearch.model.PaymentModel;
 import com.flightsearch.model.TicketInfo;
 import com.flightsearch.model.UserModel;
 import com.flightsearch.service.FlightSearchService;
+import com.flightsearch.service.PaymentService;
 
 @Controller
 @ComponentScan(basePackages = "com.flightsearch.service")
 @SessionAttributes({"user", "selectedTicket"})
 public class PaymentController {
 	@Autowired
-	FlightSearchService flightSearchService;
+	PaymentService paymentService;
 	
 	@RequestMapping("payment")
 	public String temp(){
 		return "paymentForm";
+	}
+	
+	@RequestMapping("/cancelPayment")
+	public String cancel(HttpSession session){
+		session.removeAttribute("selectedTicket");
+		return "index";
 	}
 	
 	@RequestMapping("/paymentForm")
@@ -56,12 +68,42 @@ public class PaymentController {
 		return "paymentForm";
 	}
 	
-//	@PostMapping("/pay")
-//	public String goToPaymentForm(){
+	@PostMapping("/pay")
+	public ModelAndView goToPaymentForm(@ModelAttribute(name = "paymentFormDetails") PaymentInfoDTO paymentFormDetails, Model model, HttpSession session){
+		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
+		PaymentModel paymentModel = paymentService.saveOrder(paymentFormDetails, ticket);
+		
+		return new ModelAndView("showPaymentInfo", "paymentModel", paymentModel);
+	}
+	
+//	@PostMapping("/login")
+//	public String login(@ModelAttribute(name = "loginDetails") UserLoginDTO loginDetails, Model model,
+//			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
+//		// customerService.addCustomer(customer);
+//		// return "Successfully added";
+//
+//		UserModel user = userService.fetchUserByLogin(loginDetails.getEmail(), loginDetails.getPassword());
+//		if (user == null) {
+//			model.addAttribute("error", "Invalid Credentials");
+//			return "loginForm";
+//		}
+//		model.addAttribute("user", user);
+//
+//		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
+////		System.out.println("before ticket nuill check");
+//		//if user came after selecting a ticket
+//		if(ticket != null) {
+////			System.out.println("after ticket nuil check");
+//			return "paymentForm";
+//		}
 //		
+//		return "index";
 //	}
-	
-	
+//	
+//	public ModelAndView showInfo(@ModelAttribute("ticket") TicketDTO ticket, Model model) {
+//		List<TicketInfoDTO> ticketList = flightSearchService.getTicketInfo(ticket);
+//		return new ModelAndView("showinfo", "tickets", ticketList);
+
 	
 }
 

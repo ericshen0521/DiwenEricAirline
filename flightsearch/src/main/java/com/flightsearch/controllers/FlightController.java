@@ -44,6 +44,12 @@ public class FlightController {
 	public String mainPage() {
 		return "index";
 	}
+	
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home() {
+		return "index";
+	}
+	
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
 	public @ResponseBody List<LocationInfo> getTags(@RequestParam String cityName) {
 		return simulateSearchResult(cityName);
