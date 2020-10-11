@@ -32,7 +32,7 @@ public class TicketDAOImpl implements TicketDAO{
 	}
 	
 	@Override
-	public int save(TicketInfoDTO ticketInfoDTO) {
+	public TicketInfo save(TicketInfoDTO ticketInfoDTO) {
 		// TODO Auto-generated method stub
 		TicketInfo ticket = new TicketInfo();
 		TicketInfoDTO cloneTicket;
@@ -77,12 +77,12 @@ public class TicketDAOImpl implements TicketDAO{
 			ticket.setAvailableSeats(cloneTicket.getAvailableSeats());
 			
 			int ticketID = (Integer)getSession().save(ticket);
-			return ticketID;
+			return ticket;
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return -1;
+		return null;
 	}
 
 }

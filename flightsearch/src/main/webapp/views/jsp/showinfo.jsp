@@ -21,7 +21,7 @@
 			<tr>
 				<td>Number Of Available Seats</td>
 				<td>Total Price</td>
-				<td><form:form action="checkout" method="post" modelAttribute="ticketinfo">
+				<td><form:form action="selectTicket" method="post" modelAttribute="ticketinfo">
 						<input  type = "hidden" name = "availableSeats" value="${ticket.availableSeats}">
 						<input  type = "hidden" name = "totalPrice" value="${ticket.totalPrice}">
 						<c:forEach varStatus = "vs" items = "${ticket.goList}" var = "flightpath">

@@ -8,9 +8,12 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+//import com.flightsearch.interceptor.AuthentificationInterceptor;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "com.flightsearch.controllers")
@@ -31,12 +34,19 @@ public class MyApplicationConfigurationClass implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 	
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//	    registry.addInterceptor(new AuthentificationInterceptor());
+//	}
+	
 	 @Bean
    public MessageSource messageSource() {
       ResourceBundleMessageSource source = new ResourceBundleMessageSource();
       source.setBasename("messages");
       return source;
    }
+	 
+	 
 
 	
 }

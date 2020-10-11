@@ -11,6 +11,7 @@ import com.amadeus.Amadeus;
 import com.flightsearch.DTO.TicketDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
 import com.flightsearch.model.LocationInfo;
+import com.flightsearch.model.TicketInfo;
 
 
 
@@ -20,5 +21,5 @@ public interface FlightSearchService {
 	        .build();
 	public List<LocationInfo> getLocation(String cityName);
 	public List<TicketInfoDTO> getTicketInfo(TicketDTO ticket);
-	public int insertTicketInfo(TicketInfoDTO ticketInfoDTO);
+	public TicketInfo insertTicketInfo(TicketInfoDTO ticketInfoDTO);
 }

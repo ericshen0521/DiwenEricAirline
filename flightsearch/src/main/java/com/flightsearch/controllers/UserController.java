@@ -1,6 +1,10 @@
 package com.flightsearch.controllers;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import com.flightsearch.DTO.UserLoginDTO;
 import com.flightsearch.DTO.UserRegistrationDTO;
+import com.flightsearch.model.TicketInfo;
 import com.flightsearch.model.UserModel;
 import com.flightsearch.service.UserService;
 import com.flightsearch.validator.LoginValidator;
@@ -28,7 +34,7 @@ import com.flightsearch.validator.RegistrationValidator;
 
 @Controller
 @ComponentScan(basePackages = "com.flightsearch.service")
-@SessionAttributes("user")
+@SessionAttributes({ "user", "previousRequest", "selectedTicket" })
 public class UserController {
 
 	@Autowired
@@ -52,7 +58,12 @@ public class UserController {
 
 	// @ResponseBody
 	@RequestMapping("/loginForm")
-	public String goToLoginForm() {
+	public String goToLoginForm(HttpServletRequest request) {
+//		String referrer = request.getHeader("Referer");
+//		System.out.println("setting referrer");
+//		System.out.println(referrer);
+//		request.getSession().setAttribute("previousPage", referrer);
+
 		return "loginForm";
 	}
 
@@ -60,32 +71,40 @@ public class UserController {
 	public String goToRegistration() {
 		return "registrationForm";
 	}
-	
+
 	@RequestMapping("/displayLoginDetails")
 	public String goToDisplayLoginDetails() {
 		return "displayLoginDetails";
 	}
 
 	@PostMapping("/login")
-	public String login(@ModelAttribute(name = "loginDetails") UserLoginDTO loginDetails, Model model, HttpServletRequest request) {
+	public String login(@ModelAttribute(name = "loginDetails") UserLoginDTO loginDetails, Model model,
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
 		// customerService.addCustomer(customer);
 		// return "Successfully added";
 
 		UserModel user = userService.fetchUserByLogin(loginDetails.getEmail(), loginDetails.getPassword());
-		if (user  == null) {
+		if (user == null) {
 			model.addAttribute("error", "Invalid Credentials");
 			return "loginForm";
 		}
 		model.addAttribute("user", user);
 
-		//return "displayLoginDetails";
+		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
+//		System.out.println("before ticket nuill check");
+		//if user came after selecting a ticket
+		if(ticket != null) {
+//			System.out.println("after ticket nuil check");
+			return "paymentForm";
+		}
+		
 		return "index";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String save(SessionStatus status) {
-	    status.setComplete();
-	    return "index";
+		status.setComplete();
+		return "index";
 	}
 
 	@PostMapping("/register")

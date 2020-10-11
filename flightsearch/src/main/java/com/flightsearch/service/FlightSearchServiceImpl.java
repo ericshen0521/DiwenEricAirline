@@ -3,7 +3,6 @@ package com.flightsearch.service;
 
 import com.amadeus.referenceData.Locations;
 import com.flightsearch.DAO.TicketDAO;
-import com.flightsearch.DAO.UserDAO;
 import com.flightsearch.DTO.FlightPathDTO;
 import com.flightsearch.DTO.TicketDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
@@ -22,6 +21,7 @@ import com.amadeus.exceptions.ResponseException;
 import com.amadeus.resources.FlightOfferSearch;
 import com.amadeus.resources.Location;
 import com.flightsearch.model.LocationInfo;
+import com.flightsearch.model.TicketInfo;
 
 
 @Service
@@ -112,6 +112,8 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 				ticketInfo.setAvailableSeats(flightOffersSearches[i].getNumberOfBookableSeats());
 				ticketList.add(ticketInfo);
 			}
+			//TODO
+			//will crash if no offers found
 			 if (flightOffersSearches[0].getResponse().getStatusCode() != 200) {
 			      System.out.println("Wrong status code: " + flightOffersSearches[0].getResponse().getStatusCode());
 			      System.exit(-1);
@@ -125,9 +127,9 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 	}
 	
 	@Override
-	public int insertTicketInfo(TicketInfoDTO ticketInfoDTO) {
-		int ticketID = ticketDAO.save(ticketInfoDTO);
-		return ticketID;
+	public TicketInfo insertTicketInfo(TicketInfoDTO ticketInfoDTO) {
+		TicketInfo ticket = ticketDAO.save(ticketInfoDTO);
+		return ticket;
 	}
 
 }
