@@ -72,8 +72,8 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 			                .and("departureDate", ticket.getDepartDate())
 			                .and("returnDate", ticket.getReturnDate())
 			                .and("adults", Integer.parseInt(ticket.getNumOfAdults()))
-			                .and("max", Integer.parseInt(ticket.getNumOfAdults()) + Integer.parseInt(ticket.getNumOfChildren())));
-		
+			                .and("max", 5));
+			System.out.println("flightoffersearch length: " + flightOffersSearches.length);
 			
 			for (int i = 0; i < flightOffersSearches.length; i ++) {
 				TicketInfoDTO ticketInfo = new TicketInfoDTO();
@@ -120,7 +120,7 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		System.out.println("ticketList length: " + ticketList.size());
 		return ticketList;
 	}
 	

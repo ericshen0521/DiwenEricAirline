@@ -8,20 +8,109 @@
 <meta charset="ISO-8859-1">
 <title>Flight Info</title>
 <script src="<c:url value="/resources/js/jquery.1.10.2.min.js" />"></script>
+<link href="<c:url value="/resources/css/flightstyle.css" />"
+	rel="stylesheet">
+	 <link href="<c:url value="/resources/css/theme-turqoise.css" />"
+	rel="stylesheet">
 <style>
-	table, tr, td {
-		border: solid 2px black;
-	}
+.pager{
+	float:left;
+}
 </style>
 
 </head>
 <body>
-		<c:forEach items = "${tickets}" var = "ticket">
-			<table>
-			<tr>
-				<td>Number Of Available Seats</td>
-				<td>Total Price</td>
-				<td><form:form action="checkout" method="post" modelAttribute="ticketinfo">
+	<%
+		int pageid = (Integer)request.getAttribute("page");
+		int total = 3;
+		int pagestart = 0;
+		int prevpage = 1;
+		if (pageid == 1) {}
+		else {
+			pagestart = (pageid - 1) * total;
+			prevpage = pageid - 1;
+		}
+		int pageend = pagestart + total - 1;
+		int nextpage = pageid + 1;
+		pageContext.setAttribute("pagestart", pagestart);
+		pageContext.setAttribute("pageend", pageend);
+		pageContext.setAttribute("nextpage", nextpage);
+		pageContext.setAttribute("prevpage", prevpage);
+		
+	%>
+	
+	<jsp:include page="header.jsp" />
+	<div class="deals flights row results">
+		<c:forEach items = "${tickets}" var = "ticket" begin = "${pagestart}"  end="${pageend}">
+					<div class="testclear">
+					
+					<c:forEach items = "${ticket.goList}" var = "flightpath">
+							<article class="one-third">
+								<div class="details">
+								<h4>${flightpath.departureAirport} - 
+									${flightpath.destAirport}</h4>
+									<div class="f-wrap">
+										<h5>Airline Codes</h5>
+										<div class="flight-info">${flightpath.carrierCode} ${flightpath.aircraft}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Date</h5>
+										<div class="flight-info">${flightpath.departureDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Date</h5>
+										<div class="flight-info">${flightpath.arrivalDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Duration</h5>
+										<div class="flight-info">${flightpath.duration}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.departureTerminal}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.arrivalTerminal}</div>
+									</div>
+								</div>
+							</article>
+					</c:forEach>
+					<c:forEach items = "${ticket.backList}" var = "flightpath">
+							<article class="one-third">
+								<div class="details">
+								<h4>${flightpath.departureAirport} - 
+									${flightpath.destAirport}</h4>
+									<div class="f-wrap">
+										<h5>Airline Codes</h5>
+										<div class="flight-info">${flightpath.carrierCode} ${flightpath.aircraft}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Date</h5>
+										<div class="flight-info">${flightpath.departureDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Date</h5>
+										<div class="flight-info">${flightpath.arrivalDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Duration</h5>
+										<div class="flight-info">${flightpath.duration}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.departureTerminal}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.arrivalTerminal}</div>
+										
+									</div>
+								</div>
+							</article>
+					</c:forEach>
+					</div>
+					<form:form action="checkout" method="post" modelAttribute="ticketinfo">
 						<input  type = "hidden" name = "availableSeats" value="${ticket.availableSeats}">
 						<input  type = "hidden" name = "totalPrice" value="${ticket.totalPrice}">
 						<c:forEach varStatus = "vs" items = "${ticket.goList}" var = "flightpath">
@@ -46,73 +135,23 @@
 							<input  type = "hidden" name = "backList[${vs.index}].departureTerminal" value="${flightpath.departureTerminal}">
 							<input  type = "hidden" name = "backList[${vs.index}].arrivalTerminal" value="${flightpath.arrivalTerminal}">
 						</c:forEach>
-						<input type = "submit"  value="select"/>
-					</form:form></td>
-			</tr>
-				<tr>
-					<td><c:out value="${ticket.availableSeats}"/></td>
-					<td><c:out value="${ticket.totalPrice}"/></td>
-					<c:forEach items = "${ticket.goList}" var = "flightpath">
-						<tr>
-							<td><c:out value="${flightpath.departureAirport}"/></td>
-							<td><c:out value="${flightpath.destAirport}"/></td>
-							<td><c:out value="${flightpath.departureDate}"/></td>
-							<td><c:out value="${flightpath.arrivalDate}"/></td>
-							<td><c:out value="${flightpath.duration}"/></td>
-							<td><c:out value="${flightpath.carrierCode}"/></td>
-							<td><c:out value="${flightpath.aircraft}"/></td>
-							<td><c:out value="${flightpath.departureTerminal}"/></td>
-							<td><c:out value="${flightpath.arrivalTerminal}"/></td>
-						</tr>
-					</c:forEach>
-					<c:forEach items = "${ticket.backList}" var = "flightpath">
-						<tr>
-							<td><c:out value="${flightpath.departureAirport}"/></td>
-							<td><c:out value="${flightpath.destAirport}"/></td>
-							<td><c:out value="${flightpath.departureDate}"/></td>
-							<td><c:out value="${flightpath.arrivalDate}"/></td>
-							<td><c:out value="${flightpath.duration}"/></td>
-							<td><c:out value="${flightpath.carrierCode}"/></td>
-							<td><c:out value="${flightpath.aircraft}"/></td>
-							<td><c:out value="${flightpath.departureTerminal}"/></td>
-							<td><c:out value="${flightpath.arrivalTerminal}"/></td>
-						</tr>
-					</c:forEach>
-				</tr>
-				</table>
+						<div class = "flight-subbtn">
+							<input type = "submit"  value="select"/>
+						</div>
+				</form:form>
 			</c:forEach>
-			<script>
-				$("#select-btn").click(function(event){
-					var testdata = $("#ticket-click").val();
-					console.log(testdata);
-					selectTicket(testdata);
-				})
-				
-				function selectTicket(testdata) {
-					console.log("json data: " + JSON.stringify(testdata));
-					$.ajax({
-						type : "POST",
-						url : "checkout",
-				        contentType : "application/json; charset=utf-8",
-				        data :JSON.stringify({
-				        	"goList" : testdata.goList,
-				        	"backList" : testdata.backList,
-				        	"availableSeats" : testdata.availableSeats,
-				        	"totalPrice" : testdata.totalPrice
-				        }), 
-				        dataType: "json",
-				        timeout : 100000,
-				        success : function(data) {
-				            console.log("SUCCESS: ", data);
-				        },
-				        error : function(e) {
-				            console.log("ERROR: ", e);
-				        },
-				        done : function(e) {
-				            console.log("DONE");
-				        }
-					});
-				}
-			</script>
+	</div>
+		<div class="pager">
+			<span><a href="#">First page</a></span>
+			<span><a href="/flightsearch/show/${prevpage}">&lt;</a></span>
+			<span class="/flightsearch/show/1">1</span>
+			<span><a href="/flightsearch/show/2">2</a></span>
+			<span><a href="/flightsearch/show/3">3</a></span>
+			<span><a href="/flightsearch/show/${nextpage}">&gt;</a></span>
+			<span><a href="/flightsearch/show/3">Last page</a></span>
+		</div>
+	<script>
+				$("header").addClass("header");
+	</script>
 </body>
 </html>

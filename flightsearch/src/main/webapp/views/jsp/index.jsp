@@ -44,7 +44,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="booking-form">
-						<form:form action="show" method="post" modelAttribute="ticket">
+						<form:form action="show/1" method="post" modelAttribute="ticket">
 							<div class="form-group">
 								<!--<div class="form-checkbox">
 									<label for="roundtrip">

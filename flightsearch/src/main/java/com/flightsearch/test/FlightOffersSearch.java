@@ -14,10 +14,10 @@ public class FlightOffersSearch {
         .build();
 
     FlightOfferSearch[] flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
-                  Params.with("originLocationCode", "ORD")
-                          .and("destinationLocationCode", "LON")
-                          .and("departureDate", "2020-10-10")
-                          .and("returnDate", "2020-11-08")
+                  Params.with("originLocationCode", "CHI")
+                          .and("destinationLocationCode", "SEA")
+                          .and("departureDate", "2020-10-11")
+                          .and("returnDate", "2020-10-13")
                           .and("adults", 2)
                           .and("max", 3));
 

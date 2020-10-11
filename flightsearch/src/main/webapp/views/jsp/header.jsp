@@ -27,10 +27,11 @@
 
 <header>
 
+
 	<%! UserModel currentUser = null; %>
 	<% currentUser = (UserModel) session.getAttribute("user"); %>
 
-
+	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
 		id="mainNav">
 		<div class="container-fluid">
