@@ -76,34 +76,6 @@ public class PaymentController {
 		return new ModelAndView("showPaymentInfo", "paymentModel", paymentModel);
 	}
 	
-//	@PostMapping("/login")
-//	public String login(@ModelAttribute(name = "loginDetails") UserLoginDTO loginDetails, Model model,
-//			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
-//		// customerService.addCustomer(customer);
-//		// return "Successfully added";
-//
-//		UserModel user = userService.fetchUserByLogin(loginDetails.getEmail(), loginDetails.getPassword());
-//		if (user == null) {
-//			model.addAttribute("error", "Invalid Credentials");
-//			return "loginForm";
-//		}
-//		model.addAttribute("user", user);
-//
-//		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
-////		System.out.println("before ticket nuill check");
-//		//if user came after selecting a ticket
-//		if(ticket != null) {
-////			System.out.println("after ticket nuil check");
-//			return "paymentForm";
-//		}
-//		
-//		return "index";
-//	}
-//	
-//	public ModelAndView showInfo(@ModelAttribute("ticket") TicketDTO ticket, Model model) {
-//		List<TicketInfoDTO> ticketList = flightSearchService.getTicketInfo(ticket);
-//		return new ModelAndView("showinfo", "tickets", ticketList);
 
-	
 }
 

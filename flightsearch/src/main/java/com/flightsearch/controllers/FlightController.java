@@ -95,12 +95,7 @@ public class FlightController {
 	}
 	
 	@PostMapping(value = "/selectTicket")
-	public ModelAndView checkout(@ModelAttribute("ticketinfo") TicketInfoDTO ticket, Model model, HttpServletRequest request, HttpSession session) {
-		System.out.println("inside checkout: " + ticket.getAvailableSeats());
-		System.out.println("inside checkout go list: " + ticket.getGoList().size());
-		System.out.println("inside checkout go list 1: " + ticket.getGoList().get(0).getAircraft());
-		System.out.println("inside checkout go list 2: " + ticket.getBackList().get(0).getAircraft());
-		
+	public ModelAndView checkout(@ModelAttribute("ticketinfo") TicketInfoDTO ticket, Model model, HttpServletRequest request, HttpSession session) {		
 		TicketInfo ticketInfo = flightSearchService.insertTicketInfo(ticket);
 		model.addAttribute("ticketid", ticketInfo.getId());
 		session.setAttribute("selectedTicket", ticketInfo);

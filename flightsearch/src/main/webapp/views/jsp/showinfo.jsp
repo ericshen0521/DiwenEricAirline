@@ -110,7 +110,7 @@
 							</article>
 					</c:forEach>
 					</div>
-					<form:form action="checkout" method="post" modelAttribute="ticketinfo">
+					<form:form action= "http://localhost:8080/flightsearch/selectTicket" method="post" modelAttribute="ticketinfo">
 						<input  type = "hidden" name = "availableSeats" value="${ticket.availableSeats}">
 						<input  type = "hidden" name = "totalPrice" value="${ticket.totalPrice}">
 						<c:forEach varStatus = "vs" items = "${ticket.goList}" var = "flightpath">
