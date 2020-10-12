@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-	public List<UserModel> fetchUser() {
-		return userDAO.fetchCustomers();
+	public List<UserModel> fetchUsers() {
+		return userDAO.fetchUsers();
 	}
 
 	@Override

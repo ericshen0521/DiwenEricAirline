@@ -75,7 +75,6 @@ public class PaymentController {
 		
 		return new ModelAndView("showPaymentInfo", "paymentModel", paymentModel);
 	}
-	
 
 }
 

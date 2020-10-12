@@ -59,11 +59,6 @@ public class UserController {
 	// @ResponseBody
 	@RequestMapping("/loginForm")
 	public String goToLoginForm(HttpServletRequest request) {
-//		String referrer = request.getHeader("Referer");
-//		System.out.println("setting referrer");
-//		System.out.println(referrer);
-//		request.getSession().setAttribute("previousPage", referrer);
-
 		return "loginForm";
 	}
 
@@ -106,6 +101,7 @@ public class UserController {
 		status.setComplete();
 		return "index";
 	}
+	
 
 	@PostMapping("/register")
 	public String registerAccount(
@@ -122,10 +118,5 @@ public class UserController {
 		return "displayRegistrationDetails";
 	}
 
-	@GetMapping("/fetch")
-	public String getCustomerDetails(Model model) {
-		model.addAttribute("customerList", userService.fetchUser());
-		return "welcome";
-	}
 
 }

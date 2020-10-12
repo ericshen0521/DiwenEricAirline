@@ -11,7 +11,7 @@ public interface UserService {
 	public UserModel registerUser(UserRegistrationDTO registrationDetails);
 	public void updateUser(UserModel user);
 	public void deleteUser(UserModel user);
-	public List<UserModel> fetchUser();
+	public List<UserModel> fetchUsers();
 	
 	public UserModel fetchUserByID(int userID);
 	public UserModel fetchUserByLogin(String email, String password);

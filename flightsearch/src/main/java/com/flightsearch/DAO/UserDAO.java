@@ -8,7 +8,7 @@ import com.flightsearch.model.UserModel;
 public interface UserDAO {
 	public void save(UserModel user);
 	public UserModel register(UserRegistrationDTO registrationDetails);
-	public List<UserModel> fetchCustomers();
+	public List<UserModel> fetchUsers();
 	public UserModel fetchUserByID(int userID);
 	public UserModel fetchUserByLogin(String email, String password);
 	public void update(UserModel user);

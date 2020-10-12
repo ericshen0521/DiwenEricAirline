@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-//import com.flightsearch.interceptor.AuthentificationInterceptor;
+import com.flightsearch.interceptor.AuthentificationInterceptor;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "com.flightsearch.controllers")
@@ -34,10 +34,10 @@ public class MyApplicationConfigurationClass implements WebMvcConfigurer{
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 	
-//	@Override
-//	public void addInterceptors(InterceptorRegistry registry) {
-//	    registry.addInterceptor(new AuthentificationInterceptor());
-//	}
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+	    registry.addInterceptor(new AuthentificationInterceptor()).addPathPatterns("/admin/**");
+	}
 	
 	 @Bean
    public MessageSource messageSource() {

@@ -61,7 +61,16 @@
 							style="font-size: 1.75em"
 							href="<c:url value='/registrationForm'/>">Register</a></li>
 
-					<%} else { %>
+					<%} else { 
+							if(currentUser.isAdmin()){ %>
+							<li class="nav-item"><a class="nav-link"
+								style="font-size: 1.75em"
+								href="<c:url value='/admin'/>">Admin</a></li>
+							</li>
+							<%} %>
+					
+						
+						
 						<li class="nav-item"><a class="nav-link"
 							style="font-size: 1.75em"
 							href="<c:url value='/displayLoginDetails'/>">Profile</a></li>
@@ -72,6 +81,8 @@
 							href="<c:url value='/logout'/>">Sign Out</a></li>
 						</li>
 					<%} %>
+					
+					
 
 
 					<li class="nav-item"><a class="nav-link"

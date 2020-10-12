@@ -32,6 +32,9 @@ public class UserModel implements Serializable{
 	private String email;
 	@Column(name = "PASSWORD")
 	private String password;
+	@Column(name = "IS_ADMIN")
+	private Boolean isAdmin = new Boolean(false);
+	
 	
 	//TODO
 	//private List<Ticket> tickets;
@@ -67,6 +70,13 @@ public class UserModel implements Serializable{
 		this.password = password;
 	}
 	
+	public Boolean isAdmin() {
+		return isAdmin;
+	}
+	public void setAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", email=" + email + ", password=" + password + "]";
