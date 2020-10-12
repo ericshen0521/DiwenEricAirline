@@ -28,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
-	public List<UserModel> fetchCustomers() {
+	public List<UserModel> fetchUsers() {
 		CriteriaQuery<UserModel> criteria = getSession().getCriteriaBuilder().createQuery(UserModel.class);
 		criteria.select(criteria.from(UserModel.class));
 		return getSession().createQuery(criteria).getResultList();

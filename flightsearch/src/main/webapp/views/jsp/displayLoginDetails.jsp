@@ -19,10 +19,10 @@ ${user.password}
 
 <% currentUser = (UserModel) session.getAttribute("user");
 	System.out.println(currentUser);
+	System.out.print(currentUser.getTickets().get(0).getTotalPrice());
 %>
 
 
-<c:out value="${sessionScope.user }"></c:out>
 
 <body>
 <div class="container light-style flex-grow-1 container-p-y">

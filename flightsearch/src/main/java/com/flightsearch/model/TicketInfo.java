@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -48,6 +49,10 @@ public class TicketInfo implements Serializable{
 	@Column(name = "TOTALPRICE")
 	private double totalPrice;
 	
+	@ManyToOne
+	@JoinColumn(name="OWNED_BY")
+	private UserModel ownedBy;
+	
 	public int getAvailableSeats() {
 		return availableSeats;
 	}
@@ -72,8 +77,12 @@ public class TicketInfo implements Serializable{
 	public void setBackList(List<FlightPathBack> backList) {
 		this.backList = backList;
 	}
-
-	
+	public UserModel getOwnedBy() {
+		return ownedBy;
+	}
+	public void setOwnedBy(UserModel ownedBy) {
+		this.ownedBy = ownedBy;
+	}
 	
 	
 }

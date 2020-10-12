@@ -59,11 +59,6 @@ public class UserController {
 	// @ResponseBody
 	@RequestMapping("/loginForm")
 	public String goToLoginForm(HttpServletRequest request) {
-//		String referrer = request.getHeader("Referer");
-//		System.out.println("setting referrer");
-//		System.out.println(referrer);
-//		request.getSession().setAttribute("previousPage", referrer);
-
 		return "loginForm";
 	}
 
@@ -106,26 +101,31 @@ public class UserController {
 		status.setComplete();
 		return "index";
 	}
+	
 
 	@PostMapping("/register")
 	public String registerAccount(
 			@ModelAttribute(name = "registrationDetails") @Validated UserRegistrationDTO registrationDetails,
-			BindingResult result, Model model) {
+			BindingResult result, Model model, HttpSession session) {
 
 		if (result.hasErrors()) {
 			return "registrationForm";
 		}
 
 		model.addAttribute("registrationDetails", registrationDetails);
-		userService.registerUser(registrationDetails);
+		UserModel user = userService.registerUser(registrationDetails);
 
-		return "displayRegistrationDetails";
+		
+		model.addAttribute("user", user);
+
+		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
+
+		if(ticket != null) {
+			return "paymentForm";
+		}
+		
+		return "index";
 	}
 
-	@GetMapping("/fetch")
-	public String getCustomerDetails(Model model) {
-		model.addAttribute("customerList", userService.fetchUser());
-		return "welcome";
-	}
 
 }

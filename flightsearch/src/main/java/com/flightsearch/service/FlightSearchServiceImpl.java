@@ -135,5 +135,10 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 		TicketInfo ticket = ticketDAO.save(ticketInfoDTO);
 		return ticket;
 	}
-
+	
+	@Override
+	public void updateTicketInfo(TicketInfo ticket) {
+		ticketDAO.update(ticket);
+		
+	}
 }

@@ -85,4 +85,9 @@ public class TicketDAOImpl implements TicketDAO{
 		return null;
 	}
 
+	@Override
+	public void update(TicketInfo ticketInfo) {
+		getSession().update(ticketInfo);
+	}
+
 }
