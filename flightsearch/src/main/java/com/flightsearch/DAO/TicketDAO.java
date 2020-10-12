@@ -1,7 +1,8 @@
 package com.flightsearch.DAO;
 
 import com.flightsearch.DTO.TicketInfoDTO;
+import com.flightsearch.model.TicketInfo;
 
 public interface TicketDAO {
-	public int save(TicketInfoDTO ticketInfoDTO);
+	public TicketInfo save(TicketInfoDTO ticketInfoDTO);
 }

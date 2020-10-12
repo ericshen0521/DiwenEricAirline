@@ -1,5 +1,6 @@
 package com.flightsearch.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TICKET")
-public class TicketInfo {
+public class TicketInfo implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
