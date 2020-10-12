@@ -22,4 +22,5 @@ public interface FlightSearchService {
 	public List<LocationInfo> getLocation(String cityName);
 	public List<TicketInfoDTO> getTicketInfo(TicketDTO ticket);
 	public TicketInfo insertTicketInfo(TicketInfoDTO ticketInfoDTO);
+	public void updateTicketInfo(TicketInfo ticket);
 }

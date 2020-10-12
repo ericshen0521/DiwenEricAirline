@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.flightsearch.DAO.TicketDAOImpl;
 import com.flightsearch.DTO.PaymentInfoDTO;
 import com.flightsearch.DTO.TicketDTO;
 import com.flightsearch.DTO.TicketInfoDTO;
@@ -45,6 +46,8 @@ import com.flightsearch.service.PaymentService;
 public class PaymentController {
 	@Autowired
 	PaymentService paymentService;
+	@Autowired
+	FlightSearchService FlightSearchService;
 	
 	@RequestMapping("payment")
 	public String temp(){
@@ -71,10 +74,14 @@ public class PaymentController {
 	@PostMapping("/pay")
 	public ModelAndView goToPaymentForm(@ModelAttribute(name = "paymentFormDetails") PaymentInfoDTO paymentFormDetails, Model model, HttpSession session){
 		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
-		PaymentModel paymentModel = paymentService.saveOrder(paymentFormDetails, ticket);
 		UserModel user = (UserModel) session.getAttribute("user");
-		user.addTicket(ticket);
 		ticket.setOwnedBy(user);
+		FlightSearchService.updateTicketInfo(ticket);
+		
+		user.addTicket(ticket);
+		
+		
+		PaymentModel paymentModel = paymentService.saveOrder(paymentFormDetails, ticket);
 		
 		return new ModelAndView("showPaymentInfo", "paymentModel", paymentModel);
 	}
