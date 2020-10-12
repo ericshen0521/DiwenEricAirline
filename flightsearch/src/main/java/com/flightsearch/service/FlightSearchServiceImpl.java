@@ -64,6 +64,8 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 	public List<TicketInfoDTO> getTicketInfo(TicketDTO ticket) {
 		FlightOfferSearch[] flightOffersSearches;
 		List<TicketInfoDTO> ticketList;
+		System.out.println("departcity: " + ticket.getDepartCity() + "  " + ticket.getDepartCity().length());
+		System.out.println("destcity: " + ticket.getDestCity() + " " + ticket.getDestCity().length());
 		ticketList = new ArrayList<TicketInfoDTO>();
 		try {
 			flightOffersSearches = amadeus.shopping.flightOffersSearch.get(

@@ -146,12 +146,10 @@
 			paramName: "cityName",
 			delimiter: ",",
 			OnSelect: function(suggestion) {
-				console.log("ui test");
 				return false;
 			},
 			transformResult: function(response) {
-			console.log("ffff");
-			console.log(response);
+	
 			
 			return {
 			  
