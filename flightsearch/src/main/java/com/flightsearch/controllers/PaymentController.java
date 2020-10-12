@@ -72,6 +72,9 @@ public class PaymentController {
 	public ModelAndView goToPaymentForm(@ModelAttribute(name = "paymentFormDetails") PaymentInfoDTO paymentFormDetails, Model model, HttpSession session){
 		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
 		PaymentModel paymentModel = paymentService.saveOrder(paymentFormDetails, ticket);
+		UserModel user = (UserModel) session.getAttribute("user");
+		user.addTicket(ticket);
+		ticket.setOwnedBy(user);
 		
 		return new ModelAndView("showPaymentInfo", "paymentModel", paymentModel);
 	}

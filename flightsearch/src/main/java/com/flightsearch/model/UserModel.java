@@ -1,13 +1,17 @@
 package com.flightsearch.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -34,6 +38,9 @@ public class UserModel implements Serializable{
 	private String password;
 	@Column(name = "IS_ADMIN")
 	private Boolean isAdmin = new Boolean(false);
+	
+	@OneToMany(mappedBy="ownedBy", fetch = FetchType.EAGER)
+	private List<TicketInfo> tickets = new ArrayList<>();
 	
 	
 	//TODO
@@ -77,6 +84,18 @@ public class UserModel implements Serializable{
 		this.isAdmin = isAdmin;
 	}
 
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	public List<TicketInfo> getTickets() {
+		return tickets;
+	}
+	public void addTicket(TicketInfo ticket) {
+		this.tickets.add(ticket);
+	}
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", email=" + email + ", password=" + password + "]";
