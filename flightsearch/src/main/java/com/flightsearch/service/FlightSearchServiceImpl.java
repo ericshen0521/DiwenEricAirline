@@ -71,7 +71,7 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 			                .and("destinationLocationCode", ticket.getDestCity())
 			                .and("departureDate", ticket.getDepartDate())
 			                .and("returnDate", ticket.getReturnDate())
-			                .and("adults", Integer.parseInt(ticket.getNumOfAdults()))
+			                .and("adults", 1)
 			                .and("max", 5));
 			System.out.println("flightoffersearch length: " + flightOffersSearches.length);
 			
@@ -108,6 +108,8 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 				}
 				ticketInfo.setGoList(first);
 				ticketInfo.setBackList(second);
+				double price = flightOffersSearches[i].getPrice().getTotal() * (Integer.parseInt(ticket.getNumOfAdults()) + 
+						Integer.parseInt(ticket.getNumOfChildren()));
 				ticketInfo.setTotalPrice(flightOffersSearches[i].getPrice().getTotal());
 				ticketInfo.setAvailableSeats(flightOffersSearches[i].getNumberOfBookableSeats());
 				ticketList.add(ticketInfo);

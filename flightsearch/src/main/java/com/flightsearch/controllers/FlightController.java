@@ -46,16 +46,19 @@ public class FlightController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mainPage() {
+		ticketdto = null;
 		return "index";
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home() {
+		ticketdto = null;
 		return "index";
 	}
 	
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
 	public @ResponseBody List<LocationInfo> getTags(@RequestParam String cityName) {
+		ticketdto = null;
 		return simulateSearchResult(cityName);
 	}
 	
@@ -96,6 +99,7 @@ public class FlightController {
 	
 	@PostMapping(value = "/selectTicket")
 	public ModelAndView checkout(@ModelAttribute("ticketinfo") TicketInfoDTO ticket, Model model, HttpServletRequest request, HttpSession session) {		
+		ticketdto = null;
 		TicketInfo ticketInfo = flightSearchService.insertTicketInfo(ticket);
 		model.addAttribute("ticketid", ticketInfo.getId());
 		session.setAttribute("selectedTicket", ticketInfo);

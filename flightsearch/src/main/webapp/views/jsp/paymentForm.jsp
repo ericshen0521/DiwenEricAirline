@@ -63,7 +63,7 @@
 						</div> <span class="text-muted">$5</span>
 					</li>
 					<li class="list-group-item d-flex justify-content-between"><span>Total
-							(USD)</span> <strong>$20</strong></li>
+							(USD)</span> <strong>$ ${selectedTicket.totalPrice}</strong></li>
 				</ul>
 
 

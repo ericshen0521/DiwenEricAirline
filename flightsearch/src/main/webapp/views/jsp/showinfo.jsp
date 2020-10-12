@@ -136,6 +136,8 @@
 							<input  type = "hidden" name = "backList[${vs.index}].arrivalTerminal" value="${flightpath.arrivalTerminal}">
 						</c:forEach>
 						<div class = "flight-subbtn">
+							<h5>Total Price</h5>
+							<div class="flight-info">$ ${ticket.totalPrice}</div>
 							<input type = "submit"  value="select"/>
 						</div>
 				</form:form>
