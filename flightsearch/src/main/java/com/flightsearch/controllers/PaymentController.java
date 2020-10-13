@@ -73,6 +73,7 @@ public class PaymentController {
 	
 	@PostMapping("/pay")
 	public ModelAndView goToPaymentForm(@ModelAttribute(name = "paymentFormDetails") PaymentInfoDTO paymentFormDetails, Model model, HttpSession session){
+		System.out.println("session test 2: " + session.getAttribute("selectedTicket"));
 		TicketInfo ticket = (TicketInfo)session.getAttribute("selectedTicket");
 		UserModel user = (UserModel) session.getAttribute("user");
 		ticket.setOwnedBy(user);

@@ -7,15 +7,21 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "TICKET")
+
 public class TicketInfo implements Serializable{
 	
 	@Id
@@ -29,19 +35,23 @@ public class TicketInfo implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(
 			name="FLIGHTPATHGO",
 			joinColumns = @JoinColumn(name="GO_ID")
 	)
+	//@OrderColumn
 	private List<FlightPathGo> goList;
 	
 	@ElementCollection
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@CollectionTable(
 			name="FLIGHTPATHBACK",
 			joinColumns = @JoinColumn(name="BACK_ID")
 	)
+	//@OrderColumn
 	private List<FlightPathBack> backList;
 	
 	@Column(name = "AVAILABLESEATS")

@@ -6,4 +6,5 @@ import com.flightsearch.model.TicketInfo;
 public interface TicketDAO {
 	public TicketInfo save(TicketInfoDTO ticketInfoDTO);
 	public void update(TicketInfo ticketInfo);
+	public void delete(String id);
 }

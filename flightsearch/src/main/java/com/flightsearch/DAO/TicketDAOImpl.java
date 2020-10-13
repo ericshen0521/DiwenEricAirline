@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +90,19 @@ public class TicketDAOImpl implements TicketDAO{
 	@Override
 	public void update(TicketInfo ticketInfo) {
 		getSession().update(ticketInfo);
+	}
+
+
+	@Override
+	public void delete(String ticket_id) {
+		// TODO Auto-generated method stub
+//		TicketInfo t = (TicketInfo)getSession().load(TicketInfo.class, Integer.parseInt(ticket_id));
+//		System.out.println("delete ticket id: " + t.getId());
+//		String hql = "DELETE FROM TicketInfo "  + 
+//	             "WHERE id = :ticket_Id";
+//		System.out.println(hql);
+//		Query query = getSession().createQuery(hql).setParameter("ticket_Id", Integer.parseInt(ticket_id));
+//		int result = query.executeUpdate();
 	}
 
 }

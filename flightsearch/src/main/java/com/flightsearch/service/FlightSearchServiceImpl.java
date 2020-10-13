@@ -141,4 +141,14 @@ public class FlightSearchServiceImpl implements FlightSearchService{
 		ticketDAO.update(ticket);
 		
 	}
+
+
+
+
+	@Override
+	public void delete(String id) {
+		// TODO Auto-generated method stub
+		ticketDAO.delete(id);
+		
+	}
 }

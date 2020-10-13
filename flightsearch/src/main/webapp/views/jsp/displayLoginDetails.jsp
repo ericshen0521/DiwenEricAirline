@@ -2,12 +2,18 @@
     pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ page import="com.flightsearch.model.UserModel" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
       
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="<c:url value="/resources/css/userprofile.css" />"
-	rel="stylesheet">
+<script src="<c:url value="/resources/js/jquery.1.10.2.min.js" />"></script>
+<style>
+.displayhead{
+	height: 150px;
+	clear:both;
+}
+</style>
 </head>
 <body>
 
@@ -25,8 +31,11 @@ ${user.password}
 
 
 <body>
+	<div class = "displayhead">
+		<jsp:include page="header.jsp" />
+	</div>
 <div class="container light-style flex-grow-1 container-p-y">
-
+	
 
     <div class="card overflow-hidden">
       <div class="row no-gutters row-bordered row-border-light">
@@ -52,13 +61,85 @@ ${user.password}
                   <label class="form-label">Company</label>
                   <input type="text" class="form-control" value="Company Ltd.">
                 </div>-->
-                <c:forEach items = "${user.tickets}" var = "ticket">
-                	<div class="form-group">
-                  		<label class="form-label"></label>
-                  		
-                	</div>
-                </c:forEach>
               </div>
+              
+              <c:forEach items = "${user.tickets}" var = "ticket">
+  
+					
+					<c:forEach items = "${ticket.goList}" var = "flightpath">
+							<article class="one-third">
+								<div class="details">
+								<h4>${flightpath.departureAirport} - 
+									${flightpath.destAirport}</h4>
+									<div class="f-wrap">
+										<h5>Airline Codes</h5>
+										<div class="flight-info">${flightpath.carrierCode} ${flightpath.aircraft}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Date</h5>
+										<div class="flight-info">${flightpath.departureDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Date</h5>
+										<div class="flight-info">${flightpath.arrivalDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Duration</h5>
+										<div class="flight-info">${flightpath.duration}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.departureTerminal}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.arrivalTerminal}</div>
+									</div>
+								</div>
+							</article>
+					</c:forEach>
+					<c:forEach items = "${ticket.backList}" var = "flightpath">
+							<article class="one-third">
+								<div class="details">
+								<h4>${flightpath.departureAirport} - 
+									${flightpath.destAirport}</h4>
+									<div class="f-wrap">
+										<h5>Airline Codes</h5>
+										<div class="flight-info">${flightpath.carrierCode} ${flightpath.aircraft}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Date</h5>
+										<div class="flight-info">${flightpath.departureDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Date</h5>
+										<div class="flight-info">${flightpath.arrivalDate}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Duration</h5>
+										<div class="flight-info">${flightpath.duration}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Departure Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.departureTerminal}</div>
+									</div>
+									<div class="f-wrap">
+										<h5>Arrival Terminal</h5>
+										<div class="flight-info">terminal: ${flightpath.arrivalTerminal}</div>
+										
+									</div>
+								</div>
+							</article>
+					</c:forEach>
+					<div><h3>Total Price: ${ticket.totalPrice}</h3></div>
+					<div><h3>Ticket Id: ${ticket.id}</h3></div>
+					<form:form action = "deleteticket/${ticket.id}" method = "post">
+						<div>
+							<input type="submit" id = "deletebutton" value="delete">
+						</div>
+					</form:form>
+					</div>
+                </c:forEach>
 
             </div>
           </div>
@@ -66,11 +147,8 @@ ${user.password}
       </div>
     </div>
 
-  </div>
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
+
 	
-</script>
+
 </body>
 </html>

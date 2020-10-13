@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,6 +31,7 @@ import com.flightsearch.DTO.UserLoginDTO;
 import com.flightsearch.DTO.UserRegistrationDTO;
 import com.flightsearch.model.TicketInfo;
 import com.flightsearch.model.UserModel;
+import com.flightsearch.service.FlightSearchService;
 import com.flightsearch.service.UserService;
 import com.flightsearch.validator.LoginValidator;
 import com.flightsearch.validator.RegistrationValidator;
@@ -39,6 +43,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	FlightSearchService flightSearchService;
 
 	@Autowired
 	private RegistrationValidator registrationValidator;
@@ -68,8 +75,27 @@ public class UserController {
 	}
 
 	@RequestMapping("/displayLoginDetails")
-	public String goToDisplayLoginDetails() {
+	public String goToDisplayLoginDetails(HttpSession session) {
+		UserModel u = (UserModel) session.getAttribute("user");
+		TicketInfo t = (TicketInfo) u.getTickets().get(0);
+		int id = t.getId();
+
+		
 		return "displayLoginDetails";
+	}
+	
+	@PostMapping("/deleteticket/{id}")
+	public String deletetickets(@PathVariable("id")String id, HttpSession session) {
+		System.out.println("delete id: " + id);
+		flightSearchService.delete(id);
+		UserModel user = (UserModel)session.getAttribute("user");		
+		String email = user.getEmail();
+		String password = user.getPassword();
+		System.out.println("email: " + email);
+		System.out.println("password: " + password );
+		UserModel newUser = userService.fetchUserByLogin(email, password);
+		session.setAttribute("user", newUser);
+		return "index";
 	}
 
 	@PostMapping("/login")

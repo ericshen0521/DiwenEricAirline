@@ -110,8 +110,10 @@ public class FlightController {
 			return new ModelAndView("loginForm");
 		}
 		
+		System.out.println("session test 1: " + session.getAttribute("selectedTicket"));
 		
-		return new ModelAndView("paymentForm", "selectedTicket", model);
+		
+		return new ModelAndView("paymentForm", "ticket", model);
 
 	}
 
