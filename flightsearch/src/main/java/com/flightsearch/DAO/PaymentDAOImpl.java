@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.flightsearch.model.FlightPathBack;
 import com.flightsearch.model.FlightPathGo;
 import com.flightsearch.model.PaymentModel;
 import com.flightsearch.model.TicketInfo;
+import com.flightsearch.model.UserModel;
 
 
 
@@ -61,5 +64,31 @@ public class PaymentDAOImpl implements PaymentDAO{
 		getSession().saveOrUpdate(paymentModel);
 		return paymentModel.getId();
 	}
+	
+	@Override
+	public List<PaymentModel> fetchPayments() {
+		CriteriaQuery<PaymentModel> criteria = getSession().getCriteriaBuilder().createQuery(PaymentModel.class);
+		criteria.select(criteria.from(PaymentModel.class));
+		return getSession().createQuery(criteria).getResultList();
+	}
+	
+	@Override
+	public PaymentModel fetchPaymentByID(int paymentID) {
+		return getSession().get(PaymentModel.class, paymentID);
+	}
+	
+	@Override
+	public void save(PaymentModel payment) {
+		getSession().save(payment);
+	}
+	
+	@Override
+	public void update(PaymentModel payment) {
+		getSession().update(payment);
+	}
 
+	@Override
+	public void delete(PaymentModel payment) {
+		getSession().delete(payment);
+	}
 }
