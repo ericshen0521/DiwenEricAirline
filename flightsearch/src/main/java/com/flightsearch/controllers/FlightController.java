@@ -64,7 +64,7 @@ public class FlightController {
 	
 	
 	@RequestMapping(value = "/show/{pageid}")
-	public ModelAndView showInfo(@ModelAttribute("ticket") TicketDTO ticket, @PathVariable int pageid,Model model) {
+	public ModelAndView showInfo(@ModelAttribute("ticket") TicketDTO ticket, @PathVariable int pageid,Model model, HttpSession session) {
 		if (ticketdto == null) {
 			ticketdto = new TicketDTO();
 			ticketdto.setDepartCity(ticket.getDepartCity());
@@ -92,8 +92,12 @@ public class FlightController {
 		}
 		List<TicketInfoDTO> ticketList = flightSearchService.getTicketInfo(ticket);
 		
+		
 		ModelAndView modelAndView = new ModelAndView("showinfo", "tickets", ticketList);
 		modelAndView.addObject("page", pageid);
+		session.setAttribute("departCity", ticket.getDepartCity());
+		session.setAttribute("destCity", ticket.getDestCity());
+		
 		return modelAndView;
 	}
 	
