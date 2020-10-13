@@ -37,14 +37,6 @@ public class PaymentModel implements Serializable{
 	@JoinColumn(name="TICKET_ID")
 	private TicketInfo ticket;
 	
-//	@Column(name = "DATE")
-//	private Date date;
-//	
-//	@CreationTimestamp
-//	protected void onCreate() {
-//		date = new Date();
-//	}
-	
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 	
